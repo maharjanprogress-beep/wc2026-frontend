@@ -50,8 +50,9 @@ const PredictionsContext = createContext<PredictionsContextType | null>(null);
 const CACHE_PREFIX = "wc2026_prediction_";
 
 async function doFetch(homeTeam: string, awayTeam: string, stage: string): Promise<MatchPrediction> {
+  const apiUrl = process.env["EXPO_PUBLIC_API_URL"];
   const domain = process.env["EXPO_PUBLIC_DOMAIN"];
-  const baseUrl = domain ? `https://${domain}` : "";
+  const baseUrl = apiUrl ?? (domain ? `https://${domain}` : "");
   const response = await fetch(`${baseUrl}/api/predictions/match`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
